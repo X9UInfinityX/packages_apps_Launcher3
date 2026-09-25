@@ -34,7 +34,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.PointF;
@@ -815,8 +814,9 @@ public class TaskbarView extends FrameLayout implements FolderIcon.FolderIconPar
             return 0;
         }
 
-        Configuration config = getResources().getConfiguration();
-        if (!mActivityContext.isThreeButtonNav() && config.smallestScreenWidthDp >= 500) {
+        // Trimming is only needed when navigation buttons consume space at the taskbar edge.
+        // In gestural mode it leaves the final pinned icon missing until the hotseat is shown.
+        if (!mActivityContext.isThreeButtonNav()) {
             return 0;
         }
 
