@@ -1127,6 +1127,9 @@ public class TaskbarViewController implements TaskbarControllers.LoggableTaskbar
         // or fade in while already in in-app state.
         Interpolator interpolator = mIsHotseatIconOnTopWhenAligned ? LINEAR : FINAL_FRAME;
 
+        // Use Launcher's profile here: the taskbar window does not receive the Launcher window
+        // insets, so its profile can calculate a different hotseat offset. That mismatch becomes
+        // visible as a vertical jump when the aligned taskbar icons are swapped for hotseat icons.
         int offsetY = launcherDp.getTaskbarOffsetY();
         setter.setFloat(mTaskbarIconTranslationYForHome, VALUE, -offsetY, interpolator);
         setter.setFloat(mTaskbarNavButtonTranslationY, VALUE, -offsetY, interpolator);
